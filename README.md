@@ -5,22 +5,45 @@ Terraform project to provision AWS VPC and EC2
 
 This repository demonstrates how to provision AWS infrastructure using Terraform.
 
-## Resources Created
-- VPC
-- Public Subnet
-- Internet Gateway
-- Route Table
-- Security Group (SSH)
-- EC2 Instance
+# Terraform AWS VPC + EC2 + Auto Scaling Group
 
-## Use Case
-Useful for startups or teams to quickly bootstrap AWS infrastructure.
+This project demonstrates how to provision scalable AWS infrastructure using Terraform.
 
-## How to Run
+## Architecture Overview
+- VPC with public subnet
+- Internet Gateway and routing
+- Security Group allowing SSH
+- Launch Template with user-data
+- Auto Scaling Group (ASG)
+- EC2 instances running Docker & NGINX
+
+## Features
+- Infrastructure as Code using Terraform
+- High availability using Auto Scaling Group
+- Automatic instance bootstrapping via user-data
+- Docker-based application deployment
+
+## User Data Configuration
+The instances launched via ASG use a user-data script that:
+- Updates the OS
+- Installs Docker
+- Starts Docker service
+- Runs an NGINX container on port 80
+
+## Files Explained
+- `provider.tf` – AWS provider configuration
+- `variables.tf` – Input variables
+- `main.tf` – VPC, subnet, networking, security group
+- `asg.tf` – Launch Template and Auto Scaling Group
+- `userdata.sh` – Instance bootstrapping script
+- `outputs.tf` – Output values
+
+## How to Deploy
+```bash
 terraform init
+terraform plan
 terraform apply
 
-When asked for key_name, enter your EC2 key pair name.
 
 ## Contact
 Ashutosh Upadhyay  
